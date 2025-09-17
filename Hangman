@@ -1,0 +1,23 @@
+#Hangman game
+print("Welcome to Hangman Game")
+word = ["B", "A", "R", "G", "A", "I", "N"]
+total_guess = 6
+word_check = ["*","*","*","*","*","*","*"]
+
+def enter_guess():
+    guess = input("Enter the alphabet: ")
+    while type(guess) != str or len(guess) > 1:
+        print("You entered wrong input, kindly check the input")
+        guess = input("Enter the alphabet: ")
+    loop_index = 0
+    for letter in word:
+        loop_index+=1
+        if letter == guess.upper():
+            word_check[loop_index-1] = guess.upper()
+
+while not total_guess == 0:
+    enter_guess()
+    total_guess -= 1
+
+print("".join(word_check))
+print(f"The correct word is {"".join(word).capitalize()}")
