@@ -1,0 +1,53 @@
+import string
+alphabets = list(string.ascii_uppercase)
+
+choice_message = input("Encode or Decode?: (Type E for encode and D for decode): ").upper()
+while choice_message != "E" and choice_message != "D":
+    print("Incorrect input!!! Please follow the instructions") 
+    choice_message = input("Encode or Decode?: (Type E for encode and D for decode): ").upper()
+
+message = input("Enter message to send: ").upper()
+new_message = []
+
+def has_numbers(message):
+    return any(char.isdigit() for char in message)
+
+while has_numbers(message):
+    print("Incorrect input!!! message must contain only alphabets")
+    message = input("Enter message to send: ").upper()
+    has_numbers(message)
+ 
+message =  list(message)
+
+encrypt_decrypt_key = input("Enter algorithm key: 'Must be a number'!!....: ")
+
+def has_alphabet(key_arg):
+    return any(char.isalpha() for char in key_arg)
+
+while has_alphabet(encrypt_decrypt_key):
+    print("Incorrect input!!! message must contain only numbers")
+    encrypt_decrypt_key = input("Enter algorithm key: 'Must be a number'!!....: ")
+    has_alphabet(encrypt_decrypt_key)
+
+def encryption(key, message_list, alphabets_list):
+    for x in message_list:
+        for y in alphabets_list:
+            if x == y:
+                position_index = alphabets_list.index(x)
+                new_index = (position_index+int(key))%26
+                new_message.append(alphabets[new_index])
+    return(f"Your encrypted message is: {"".join(new_message).capitalize()}")
+
+def decryption(key, message_list, alphabets_list):
+    for x in message_list:
+        for y in alphabets_list:
+            if x == y:
+                position_index = alphabets_list.index(x)
+                new_index = (position_index-(int(key)%26))
+                new_message.append(alphabets[new_index])
+    return(f"Your decrypted message is: {"".join(new_message).capitalize()}")
+
+if choice_message == "E":
+    print(encryption(encrypt_decrypt_key,message,alphabets))
+else:
+    print(decryption(encrypt_decrypt_key,message,alphabets))
