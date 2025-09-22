@@ -1,0 +1,42 @@
+bidders = {}
+print("Welcome to the bidding system!!!")
+
+def bid_fn():
+    bidder_name = input("What is your name?: ")
+    while True:
+        bid_price = input("What price do you want to bid?: ")
+        try:
+            integer_value = int(bid_price)
+            bidders[bidder_name] = int(bid_price)
+            break
+        except ValueError:
+            print("Your price should contain only numbers! Kindly bid again")
+    
+
+def has_numbers(message):
+    return any(char.isdigit() for char in message)
+
+
+
+while True:
+    bid_fn()
+    user_response = input("Do you want to make another bid? (Y/N): ").upper()
+
+    while user_response.upper() != "N" and user_response.upper() != "Y":
+        print("You entered a wrong input!!!")
+        user_response = input("Do you want to make another bid? (Y/N): ").upper()
+
+    if user_response.upper() == "N":
+        break
+    elif user_response.upper() == "Y":
+        continue
+
+highest_bidder = ""
+highest_bid = 0
+
+for bid in bidders:
+    if int(bidders[bid]) > highest_bid:
+        highest_bid = bidders[bid]
+        highest_bidder = bid
+
+print(f"The winner of the bid is {highest_bidder}, with a bid of ${highest_bid}")
