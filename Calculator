@@ -1,0 +1,60 @@
+def addition(num1,num2):
+    return float(num1)+ float(num2)
+
+def subtraction(num1,num2):
+    return float(num1)- float(num2)
+
+def division(num1,num2):
+    return float(num1)/ float(num2)
+
+def multiplication(num1,num2):
+    return float(num1) * float(num2)
+
+operations = {
+    "+": addition,
+    "-": subtraction,
+    "/": division,
+    "*": multiplication,
+}
+
+print("Opening calculator......")
+first_number = input("Enter first number: ")
+answer = 0
+
+def isAlphabet(alphabet):
+    return any(char.isalpha() for char in alphabet)
+
+while isAlphabet(first_number):
+    print("please enter a valid number")
+    first_number = input("Enter first number: ")
+
+
+
+while True:
+    operator = input("Enter operator symbol (+,-,/,*): ")
+
+    while operator != "+" and operator != "-" and operator != "+" and operator != "/" and operator!="*":
+        print("Please kindly enter the right input")
+        operator = input("Enter operator symbol (+,-,/,*): ")
+
+    second_number = (input("Enter the second number: "))
+    
+    while isAlphabet(second_number):
+        print("please enter a valid number")
+        second_number = input("Enter second number: ")
+
+    for calc in operations:
+        # print(operations[calc])
+        if calc == operator:
+            answer = operations[calc](first_number,second_number)
+            print(answer)
+
+    continue_calculation = input("Do you want to continue? (Y or N): ").upper()
+    while continue_calculation!="N" and continue_calculation!= "Y":
+        continue_calculation = input("Do you want to continue? (Y or N): ").upper()
+
+    if continue_calculation == "Y":
+        first_number = answer
+        
+    else:
+        break
