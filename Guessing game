@@ -1,0 +1,42 @@
+import random
+
+
+computer_choice = random.randint(0,100)
+print(computer_choice)
+user_level = input("Enter level (easy/medium/hard): ").lower()
+while user_level != 'easy' and user_level != "medium" and user_level != "hard":
+    print("wrong input!!!")
+    user_level = input("Enter level (easy/medium/hard): ").lower()
+
+game_attempts = 0
+if user_level == "easy":
+    game_attempts = 10
+elif user_level == "medium":
+    game_attempts = 7
+else:
+    game_attempts = 5
+
+def is_alpha(data):
+ return any(char.isalpha() for char in data)
+
+game_over = False
+
+while not game_over:
+    print(f"You have {game_attempts} attempts")
+    user_choice = input("Guess the number: ")
+    if game_attempts > 0:
+        while is_alpha(user_choice):
+            user_choice = input("Guess the number: ")
+        if int(user_choice) == computer_choice:
+            print(f"You got it! Congratulations. Computer's choice is {computer_choice}")
+            game_attempts = 0
+            break
+        elif int(user_choice) < computer_choice:
+            print("Try again! Actual number is greater than your guess")
+            game_attempts -= 1
+        else:
+            print("Try again! Actual number is less than your guess")
+            game_attempts -= 1
+    else:
+        print("You have exhausted your attempts")
+        game_over = True
