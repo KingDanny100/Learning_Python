@@ -1,0 +1,72 @@
+resources = {
+    "Water": 4000,
+    "Milk": 3500,
+    "Coffee": 2700,
+    # "Money": 0,
+}
+available_drinks = {
+        "Expresso": {
+            "Water": 150,
+            "Milk": 0,
+            "Coffee": 26,
+            "Price": 2.5
+        },
+        "Cappuccino": {
+            "Water": 250,
+            "Milk": 100,
+            "Coffee": 24,
+            "Price": 2.3
+        },
+        "Latte": {
+            "Water": 200,
+            "Milk": 150,
+            "Coffee": 24,
+            "Price": 1.8
+        },
+}
+
+def calc_quaters(num):
+    return int(num)*0.25
+def calc_dimes(num):
+    return int(num)*0.1
+def calc_nickles(num):
+    return int(num)*0.05
+def calc_pennies(num):
+    return int(num)*0.01
+
+money = {
+    "quaters": calc_quaters,
+    'dimes': calc_dimes,
+    "nickles": calc_nickles,
+    "pennies": calc_pennies
+}
+
+user_order = input("What would you like to order? (Expresso/Latte/Capuccino)").capitalize()
+while user_order != "Expresso" and user_order != "Cappuccino" and user_order != "Latte":
+    user_order = input("What would you like to order? (Expresso/Latte/Capuccino)").capitalize()
+
+for items in available_drinks:
+    if user_order == items:
+        for resource in resources:
+            print(resource)
+            if resources[resource] > available_drinks[items][resource]:
+                # if resource == "Money":
+                #     break
+                continue
+            else:
+                print(f"Sorry! There is not enough {resource}")
+                break
+        # print(available_drinks[items]["Coffee"])
+
+total_money = 0
+for currency in money:
+    value = input(f"How many {currency} do you have? ")
+    total_money += money[currency](value)
+    
+for items in available_drinks:
+    if user_order ==items:
+        if total_money >= available_drinks[items]["Price"]:
+            print(f"Purchase successful! You have ${round(total_money - available_drinks[items]["Price"],2)} as available change")
+
+        else:
+            print(f"The price is ${round(available_drinks[items]["Price"],2)}, You do not have sufficient amount. You have been refunded")
