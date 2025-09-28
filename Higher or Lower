@@ -1,0 +1,74 @@
+import random
+
+list_data = [
+    {
+        'name': 'Instagram',
+        'follower_count': 346,
+        'description': 'Social media platform',
+        'country': 'United States'
+    },
+    {
+        'name': 'Cristiano Ronaldo',
+        'follower_count': 245,
+        'description': 'Footballer',
+        'country': 'Portugal'
+    },
+    {
+        'name': 'Ariana Grande',
+        'follower_count': 183,
+        'description': 'Musician and actress',
+        'country': 'United States'
+    },
+    {
+        'name': 'Paul Pogba',
+        'follower_count': 193,
+        'description': 'Footballer',
+        'country': 'France'
+    },
+    {
+        'name': 'Neymar Jr',
+        'follower_count': 233,
+        'description': 'Footballer',
+        'country': 'Brazil'
+    },
+    {
+        'name': 'Drake',
+        'follower_count': 153,
+        'description': 'Musician',
+        'country': 'Canada'
+    },
+]
+
+def run_game(data):
+    game_over = False
+    print("Welcome to the game!!!")
+    score = 0
+
+    while not game_over:
+        if len(data) >= 2:
+
+            random_number = random.randint(0, len(data)-1)
+            a_question = data.pop(random_number)
+            print(f"Compare A: {a_question["name"]}: a {a_question["description"]}, from {a_question["country"]}")
+        
+            b_question = random.choice(data)
+            print(f"Against B: {b_question["name"]}: a {b_question["description"]}, from {b_question["country"]}")
+            answer = input("Who has more followers? Type A or B: ").lower()
+            if answer == "a" and a_question["follower_count"] > b_question["follower_count"]:
+                score += 1
+                print("hello")
+            elif answer == "b" and a_question["follower_count"] < b_question["follower_count"]:
+                score += 1
+                print("Heyy")
+            else:
+                print("Game Over!!!")
+                print(f"You scored {score}")
+                game_over= True
+        else:
+            print(f"You scored {score}")
+            game_over= True
+
+
+run_game(list_data)
+    
+
