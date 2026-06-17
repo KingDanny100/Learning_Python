@@ -3,14 +3,6 @@ import time
 
 is_active = True
 
-menu_list = {
-    1: "Add Income",
-    2: "Add Expense",
-    3: "View Budget Summary",
-    4: "Exit the program"
-}
-
-
 expense_counter = {
     "income":{},
     "expense":{},
