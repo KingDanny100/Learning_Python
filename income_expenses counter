@@ -1,0 +1,88 @@
+print("Your monthly expense tracker \n")
+import time
+
+is_active = True
+
+menu_list = {
+    1: "Add Income",
+    2: "Add Expense",
+    3: "View Budget Summary",
+    4: "Exit the program"
+}
+
+
+expense_counter = {
+    "income":{},
+    "expense":{},
+    "total_income": 0,
+    "total_expense": 0,
+    "net_expense": 0
+}
+
+users_prompt = ""
+
+def initial_prompt():
+    for number, item in menu_list.items():
+        print(f"Press {number} to {item}")
+
+def counter_update(field_to_change, add_value):
+     while True:
+            value_amount = input("Enter income amount: ")
+            if value_amount.isdigit():
+                expense_counter[field_to_change][add_value] = int(value_amount) 
+                if field_to_change == 'income':
+                    expense_counter["total_income"] += int(value_amount)
+                    expense_counter["net_expense"] += int(value_amount)
+                elif field_to_change == "expense":
+                    expense_counter["total_expense"] += int(value_amount)
+                    expense_counter["net_expense"] -= int(value_amount)
+                print(expense_counter)
+                break
+            else:
+                print("Invalid input. Whole, positive numbers only.")
+
+
+while is_active:
+    initial_prompt()
+    
+    users_choice = input("")
+    while users_choice != "1" and users_choice != "2" and users_choice != "3" and users_choice != "4":
+        print("Please enter a valid response......")
+        initial_prompt()
+        users_choice = input(".........")
+    if users_choice == "1":
+        add_income = input("Enter Income name: ")
+        counter_update("income", add_income)
+
+    if users_choice == "2":
+        add_expense = input("Enter expense name: ")
+        counter_update("expense", add_expense)
+
+    if users_choice == "3":
+        print("\n")
+        for name, value in expense_counter.items():
+            if name == "income":
+                if not expense_counter[name]:
+                    print("You have no income yet")
+                else:
+                    print("Here is your income ")
+                    for item, item_value in expense_counter[name].items():
+                        print(f"{item}: {item_value}")
+            elif name == "expense":
+                if not expense_counter[name]:
+                    print("You have not made any expense yet")
+                else:
+                    print("\nHere is your expense ")
+                    for item, item_value in expense_counter[name].items():
+                        print(f"{item}: {item_value}")
+            else:
+                print(f"{name}: NGN{value:.2f}")
+        print("\n")
+    
+    if users_choice== "4":
+        print("Closing program......")
+        time.sleep(1)
+        is_active = False
+
+print("Program closed")
+
